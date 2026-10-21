@@ -33,7 +33,7 @@
    https://github.com/BOBILLEChristophe/DCC-LocoAddr
 */
 
-#include <DCC_LocoAddr.h>
+#include <DCC-LocoAddr.h>
 #include <TM1637Display.h>
 
 // =============================================================================

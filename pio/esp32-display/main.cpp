@@ -1,4 +1,4 @@
 // PlatformIO development wrapper.
-// The canonical display sketch remains in display/LocoAddr-Display/LocoAddr-Display.ino.
+// The canonical display sketch is an Arduino library example.
 #include <Arduino.h>
-#include "../../display/LocoAddr-Display/LocoAddr-Display.ino"
+#include "../../examples/LocoAddr-Display/LocoAddr-Display.ino"

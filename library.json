@@ -33,7 +33,7 @@
     "espressif32"
   ],
   "headers": [
-    "DCC_LocoAddr.h"
+    "DCC-LocoAddr.h"
   ],
   "examples": [
     "examples/*/*.ino"

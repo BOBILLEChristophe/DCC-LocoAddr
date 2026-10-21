@@ -24,7 +24,7 @@
    https://github.com/BOBILLEChristophe/DCC-LocoAddr
 */
 
-#include <DCC_LocoAddr.h>
+#include <DCC-LocoAddr.h>
 
 #if !CONFIG_IDF_TARGET_ESP32
 #error "LocoAddr-Display : le circuit imprime est prevu pour un ESP32-WROOM-32 (ESP32 classique)"

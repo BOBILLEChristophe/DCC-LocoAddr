@@ -1,4 +1,4 @@
 // PlatformIO development wrapper.
-// The canonical mini-display sketch remains in display_min/LocoAddr-Display-min/LocoAddr-Display-min.ino.
+// The canonical mini-display sketch is an Arduino library example.
 #include <Arduino.h>
-#include "../../display_min/LocoAddr-Display-min/LocoAddr-Display-min.ino"
+#include "../../examples/LocoAddr-Display-min/LocoAddr-Display-min.ino"
