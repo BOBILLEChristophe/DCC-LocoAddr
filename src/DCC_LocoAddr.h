@@ -1,5 +1,5 @@
 /*
-   DCC_LocoAddr.h - DCC-LocoAddr v5.0.0
+   DCC_LocoAddr.h - DCC-LocoAddr v5.0.1
 
    Lecture d'un détecteur Locoduino LocoAddr (carte v3.1) par un ESP32.
      - réception par l'UART matériel (pilote ESP-IDF), 250 kbit/s 8N1
@@ -30,7 +30,7 @@
 #include "freertos/task.h"
 #include "LocoAddrDecoder.h"
 
-#define DCC_LOCOADDR_VERSION "5.0.0"
+#define DCC_LOCOADDR_VERSION "5.0.1"
 
 class LocoAddrReader
 {

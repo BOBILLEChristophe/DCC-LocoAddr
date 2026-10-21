@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/schema/library.json",
   "name": "DCC-LocoAddr",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Reads DCC locomotive addresses from bidirectional track feedback using ESP32 hardware UART.",
   "keywords": [
     "dcc",

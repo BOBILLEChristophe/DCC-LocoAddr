@@ -1,5 +1,13 @@
 # Historique des versions
 
+## 5.0.1 — 10/2026
+
+- Réorganisation des fichiers matériels sous `hardware/`.
+- Déplacement des wrappers PlatformIO sous `development/platformio/`.
+- Mise à jour des chemins dans la documentation et la configuration PlatformIO.
+- Mise à jour du schéma du détecteur LocoAddr v3.1.
+- Aucun changement d'API de la bibliothèque.
+
 ## 10/2026 — regroupement des projets
 
 ### Dépôt
