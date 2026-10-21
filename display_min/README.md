@@ -138,7 +138,7 @@ Le schéma et le premier tableau de cette section décrivent le même montage en
 
 1. Installer la bibliothèque **DCC-LocoAddr** : installer **DCC-LocoAddr** depuis le gestionnaire de bibliothèques Arduino (après publication), ou cloner ce dépôt dans le dossier des bibliothèques Arduino.
 2. Installer la bibliothèque **TM1637** d'Avishay Orpaz, depuis le gestionnaire de bibliothèques de l'IDE.
-3. Ouvrir `LocoAddr-Display-min/LocoAddr-Display-min.ino`.
+3. Ouvrir `examples/LocoAddr-Display-min/LocoAddr-Display-min.ino`.
 4. Choisir la carte **ESP32C3 Dev Module** et régler **USB CDC On Boot : Enabled**, pour que les messages passent par la prise USB-C.
 5. Téléverser le programme.
 
