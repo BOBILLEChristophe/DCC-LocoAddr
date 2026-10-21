@@ -151,16 +151,6 @@ python3 scripts/check_version.py
 
 La CI GitHub exécute également Arduino Lint, les tests natifs, les builds PlatformIO et la validation du paquet `library.json`.
 
-## Publication
-
-La procédure complète pour :
-
-- créer/taguer une version GitHub ;
-- inscrire la bibliothèque dans Arduino Library Manager ;
-- publier dans PlatformIO Registry ;
-- retirer les anciens dépôts ;
-
-se trouve dans [`RELEASING.md`](RELEASING.md).
 
 ## Licence
 
