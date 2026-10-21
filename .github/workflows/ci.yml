@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  arduino-lint:
+    name: Arduino Library Manager compliance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: arduino/arduino-lint-action@v3
+        with:
+          compliance: strict
+          library-manager: update
+          project-type: library
+
+  decoder-native:
+    name: Native decoder tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check versions
+        run: python3 scripts/check_version.py
+      - name: Compile and run decoder tests
+        run: ./scripts/test_decoder.sh
+
+  platformio:
+    name: PlatformIO builds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install PlatformIO Core
+        run: pip install --upgrade platformio
+      - name: Build ESP32 examples and displays
+        run: |
+          pio run -e esp32-basic
+          pio run -e esp32-multi
+          pio run -e esp32-display
+          pio run -e esp32c3-mini-display
+      - name: Validate PlatformIO package manifest
+        run: pio pkg pack -o /tmp/DCC-LocoAddr.tar.gz

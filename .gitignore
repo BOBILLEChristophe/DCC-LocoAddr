@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+__MACOSX/
+._*
+
+# Windows
+Thumbs.db
+
+# PlatformIO
+.pio/
+.vscode/.browse.c_cpp.db*
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/ipch/
+
+# Arduino / compilation
+build/
+*.o
+*.elf
+*.bin
+*.map
+
+# Python
+__pycache__/
+*.pyc
+
+# Fritzing (sauvegardes)
+*.fzz.bak
+*.fz.bak
+
+# Éditeurs
+*~
+*.swp

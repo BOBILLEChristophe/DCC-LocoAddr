@@ -1,0 +1,17 @@
+LocoAddrReader	KEYWORD1
+LocoAddrDecoder	KEYWORD1
+LocoDirection	KEYWORD1
+LocoAddrStats	KEYWORD1
+begin	KEYWORD2
+end	KEYWORD2
+address	KEYWORD2
+hasAddress	KEYWORD2
+direction	KEYWORD2
+stats	KEYWORD2
+directionName	KEYWORD2
+setAddressConfirmations	KEYWORD2
+setLossTimeoutMs	KEYWORD2
+setDirectionConfirmations	KEYWORD2
+setDirectionInverted	KEYWORD2
+setBurstCallback	KEYWORD2
+DCC_LOCOADDR_VERSION	LITERAL1

@@ -1,0 +1,18 @@
+* text=auto eol=lf
+*.ino text eol=lf
+*.cpp text eol=lf
+*.h text eol=lf
+*.md text eol=lf
+*.ini text eol=lf
+*.json text eol=lf
+*.properties text eol=lf
+*.txt text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.xlsx binary
+*.fzz binary
+*.zip binary
