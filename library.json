@@ -50,6 +50,7 @@
       "extras",
       "scripts",
       "platformio.ini",
+      "pio",
       "RELEASING.md",
       "MIGRATION.md"
     ]
