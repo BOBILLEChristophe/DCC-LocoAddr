@@ -20,7 +20,7 @@ centrale DCC ──► détecteur LocoAddr v3.1 ──► canton isolé
                      ├── LocoAddr Display
                      └── LocoAddr Mini Display
 ```
-### Détecteur LocoAddr monté
+### Détecteur Railcom monté
 
 ![Carte détecteur LocoAddr v3.0 montée](detector/photos/locoaddr_detector_v3.0_photo.jpg)
 
