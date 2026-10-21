@@ -8,6 +8,18 @@ Version réduite et économique de LocoAddr Display. Elle affiche l'adresse DCC 
 
 ![Circuit imprimé Mini Display v3.0](photos/locoaddr_display_min_v3.0_pcb.png)
 
+### Prototype
+
+Le prototype ci-dessous montre le Mini Display en fonctionnement avec un ESP32-C3 SuperMini et un afficheur TM1637. La photo correspond à une implantation antérieure à la carte v3.0 ; le schéma et les Gerbers v3.0 restent la référence pour le câblage.
+
+![Prototype LocoAddr Mini Display](photos/locoaddr_display_min_prototype.jpg)
+
+### Brochage de l’ESP32-C3 SuperMini
+
+Le Mini Display utilise notamment GPIO10 pour la réception du détecteur, GPIO2 pour CLK et GPIO3 pour DIO.
+
+![Brochage ESP32-C3 SuperMini](photos/esp32_c3_supermini_brochage.png)
+
 ---
 
 ## Contenu du dossier
@@ -48,6 +60,8 @@ Version réduite et économique de LocoAddr Display. Elle affiche l'adresse DCC 
 - **Par la prise USB-C du SuperMini :** pour les essais et le téléversement.
 - **Par ALIM IN (J6), de 9 à 12 V :** le module U4 fournit le 5 V, puis D1 l'amène au rail 5 V de la carte.
 - **Les deux en même temps :** c'est possible, D1 empêche le module de renvoyer du courant vers le PC.
+
+📄 **Documentation U4 :** [Régulateur DC-DC 5,5-32 V vers 5 V / 1 A](doc/regulateur_dc-dc_5V_1A.pdf)
 
 ## Câblage
 
