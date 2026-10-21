@@ -38,19 +38,17 @@
   "examples": [
     "examples/*/*.ino"
   ],
-  "export": {
+    "export": {
     "exclude": [
       ".github",
       ".pio",
       ".vscode",
-      "detector",
-      "display",
-      "display_min",
+      "hardware",
+      "development",
       "docs",
       "extras",
       "scripts",
       "platformio.ini",
-      "pio",
       "RELEASING.md",
       "MIGRATION.md"
     ]

@@ -22,7 +22,7 @@ centrale DCC ──► détecteur LocoAddr v3.1 ──► canton isolé
 ```
 ### Détecteur Railcom monté
 
-![Carte détecteur LocoAddr v3.0 montée](detector/photos/locoaddr_detector_v3.0_photo.jpg)
+![Carte détecteur LocoAddr v3.0 montée](hardware/detector/photos/locoaddr_detector_v3.0_photo.jpg)
 
 ## Un seul dépôt, une seule bibliothèque
 
@@ -44,9 +44,9 @@ DCC-LocoAddr/
 ├── src/                        # bibliothèque DCC-LocoAddr
 ├── examples/                   # exemples Arduino
 ├── extras/tests/               # tests du décodeur sur PC
-├── detector/                   # détecteur LocoAddr v3.1
-├── display/                    # LocoAddr Display
-├── display_min/                # LocoAddr Mini Display
+├── hardware/detector/          # détecteur LocoAddr v3.1
+├── hardware/display/           # LocoAddr Display
+├── hardware/display_min/       # LocoAddr Mini Display
 ├── scripts/                    # validation locale / release
 └── .github/workflows/          # CI + publication PlatformIO
 ```
@@ -130,7 +130,7 @@ pio run -e esp32c3-mini-display
 
 ## Démarrage rapide
 
-1. Monter un détecteur v3.1 en suivant [`detector/README.md`](detector/README.md). **U5 doit être un 74HC02 ou 74HCT02, pas un 7402 TTL.**
+1. Monter un détecteur v3.1 en suivant [`hardware/detector/README.md`](hardware/detector/README.md). **U5 doit être un 74HC02 ou 74HCT02, pas un 7402 TTL.**
 2. Relier côté microcontrôleur : `5V µC` au 5 V, `GND µC` au GND, `VIO` au 3,3 V d'un ESP32 et `OUT` à l'entrée RX choisie.
 3. Compiler `examples/LocoAddr/LocoAddr.ino` ou l'un des afficheurs.
 4. La centrale ou le booster doit générer un cutout conforme à la communication bidirectionnelle DCC.

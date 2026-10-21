@@ -18,18 +18,19 @@ examples/
 Les matériels restent regroupés dans :
 
 ```text
-detector/
-display/
-display_min/
+hardware/
+├── detector/
+├── display/
+└── display_min/
 ```
 
 ## Correspondance
 
 | Ancien projet | Nouveau chemin |
 |---|---|
-| Détecteur ESP32 | `src/` + `examples/LocoAddr/` + `detector/` |
+| Détecteur ESP32 | `src/` + `examples/LocoAddr/` + `hardware/detector/` |
 | Version FreeRTOS en classe | `src/` + `examples/LocoAddr-multi/` |
-| RailCom Detector Display | `display/` |
-| Mini Display | `display_min/` |
+| RailCom Detector Display | `hardware/display/` |
+| Mini Display | `hardware/display_min/` |
 
 À partir de la v5.0.0, le code de décodage n'est plus dupliqué entre les applications : toutes utilisent la bibliothèque `DCC-LocoAddr`.

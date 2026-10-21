@@ -1,6 +1,6 @@
 # Détecteur LocoAddr v3.1
 
-Carte qui s'insère entre la centrale DCC et un canton isolé. Pendant le *cutout* RailCom®, elle lit le courant renvoyé par le décodeur de la locomotive et le restitue, isolé de la voie, sous forme d'un signal série (UART 250 kbit/s, 8N1) qu'un microcontrôleur décode. La bibliothèque [`DCC-LocoAddr`](..) en extrait l'adresse de la locomotive.
+Carte qui s'insère entre la centrale DCC et un canton isolé. Pendant le *cutout* RailCom®, elle lit le courant renvoyé par le décodeur de la locomotive et le restitue, isolé de la voie, sous forme d'un signal série (UART 250 kbit/s, 8N1) qu'un microcontrôleur décode. La bibliothèque [`DCC-LocoAddr`](../..) en extrait l'adresse de la locomotive.
 
 En option, la carte indique aussi le **sens de pose** de la locomotive sur la voie (sortie DIR).
 
@@ -35,7 +35,7 @@ En option, la carte indique aussi le **sens de pose** de la locomotive sur la vo
 
 ## Points d'attention
 
-> ⚠️ **U5 doit être un 74HC02, ou un 74HCT02, et pas un 7402 TTL.** Une entrée TTL fournit environ 1,6 mA quand elle est au niveau bas. Avec les résistances de 470 Ω et de 1 kΩ en série sur les entrées, la tension monte au-dessus du seuil bas, et la carte ne fonctionne pas, ou seulement par moments. L'ancienne BOM indiquait SN7402N : c'est probablement la cause des cartes qui ne fonctionnaient pas.
+> ⚠️ **U5 doit être un 74HC02, ou un 74HCT02, et pas un 7402 TTL.** Une entrée TTL fournit environ 1,6 mA quand elle est au niveau bas. Avec les résistances de 470 Ω et de 1 kΩ en série sur les entrées, la tension monte au-dessus du seuil bas, et la carte ne fonctionne pas, ou seulement par moments.
 
 - **VIO doit recevoir la tension logique du microcontrôleur :** 3,3 V pour un ESP32, 5 V pour un Arduino 5 V. Sans VIO, la sortie OUT ne remonte pas.
 - **Polarités :** le + de C2 va côté GND, car il est sur le rail négatif. Le + de C4 va côté +5 V.
@@ -86,7 +86,7 @@ La même carte sert aux deux versions. Pour la version de base, on ne soude pas 
 
 ## Logiciel
 
-Pour lire l'adresse des locomotives avec un ESP32, voir la bibliothèque [`DCC-LocoAddr`](..) et ses exemples. Pour l'afficher, voir [`display`](../display) et [`display_min`](../display_min).
+Pour lire l'adresse des locomotives avec un ESP32, voir la bibliothèque [`DCC-LocoAddr`](../..) et ses exemples. Pour l'afficher, voir [`display`](../display) et [`display_min`](../display_min).
 
 Il faut une centrale DCC qui génère le cutout RailCom.
 
