@@ -24,7 +24,7 @@ centrale DCC ──► détecteur LocoAddr v3.1 ──► canton isolé
 
 ![Carte détecteur LocoAddr v3.0 montée](hardware/detector/photos/locoaddr_detector_v3.0_photo.jpg)
 
-## DCC-LocoAddr est une bibliothèque accessible directement à partir de votre environnement de travail, IDE Arduino ou PlateformIO.
+## DCC-LocoAddr est une bibliothèque accessible directement à partir de votre environnement de travail, IDE Arduino ou PlatformIO.
 
 À partir de la version **5.0.0**, le décodeur est une bibliothèque commune placée directement à la racine du dépôt, afin d'être compatible avec **Arduino Library Manager** et **PlatformIO Registry**.
 
@@ -59,19 +59,19 @@ Chaque dossier matériel contient ses propres schémas, fichiers de fabrication 
 
 La bibliothèque fournit :
 
-- réception par UART matériel ESP32 à 250 kbit/s ;
-- driver UART ESP-IDF et réception événementielle ;
+- réception à 250 kbit/s sur ESP32, RP2040 et RP2350 ;
+- UART matériel sur ESP32 ; UART matériel ou PIO sur RP2040/RP2350 ;
 - regroupement des octets par cutout ;
 - décodage 4-out-of-8 ;
 - traitement ADR1 / ADR2 ;
-- adresses DCC courtes et longues ;
+- adresses DCC courtes, longues et de consist ;
 - validation d'une nouvelle adresse ;
 - détection de perte ;
 - lecture optionnelle du sens de pose de la locomotive sur les rails ;
-- jusqu'à trois détecteurs sur un ESP32 ;
+- plusieurs détecteurs : jusqu'à 3 sur ESP32, 10 sur RP2040 et 14 sur RP2350 ;
 - statistiques et callback de diagnostic.
 
-Le coeur `LocoAddrDecoder` ne dépend ni d'Arduino ni de l'ESP32 et peut être testé sur PC.
+Le coeur `LocoAddrDecoder` ne dépend ni d'Arduino ni du microcontrôleur et peut être testé sur PC.
 
 Documentation détaillée : [`docs/LIBRARY.md`](docs/LIBRARY.md).
 
@@ -111,6 +111,10 @@ esp32-basic
 esp32-multi
 esp32-display
 esp32c3-mini-display
+rp2040-basic
+rp2040-multi
+rp2350-basic
+rp2350-multi
 native-decoder
 ```
 
@@ -120,6 +124,8 @@ Exemples :
 pio run -e esp32-basic
 pio run -e esp32-display
 pio run -e esp32c3-mini-display
+pio run -e rp2040-basic
+pio run -e rp2350-basic
 ```
 
 ## Démarrage rapide
