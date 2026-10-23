@@ -1,6 +1,6 @@
 /*
    LocoAddr-multi - plusieurs détecteurs sur un même ESP32
-   DCC-LocoAddr v5.0.0
+   DCC-LocoAddr v5.1.0
 
    Une instance LocoAddrReader par détecteur, chacune sur son propre UART.
 
@@ -26,7 +26,11 @@
    https://github.com/BOBILLEChristophe/DCC-LocoAddr
 */
 
-#include <DCC-LocoAddr.h>
+#ifndef ARDUINO_ARCH_ESP32
+#error "Exemple pour ESP32 : pour un Raspberry Pi Pico, ouvrir l'exemple RP2040/LocoAddr-multi"
+#endif
+
+#include <DCC_LocoAddr.h>
 
 // =============================================================================
 // RÉGLAGES

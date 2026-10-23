@@ -12,7 +12,7 @@ Vidéo de démonstration : https://youtu.be/wCtRoU4dOLk
 
 | Dossier | Contenu |
 |---|---|
-| `LocoAddr-Display/` | le programme Arduino `LocoAddr-Display.ino` |
+| [`examples/ESP32/LocoAddr-Display/`](../../examples/ESP32/LocoAddr-Display/) | le programme Arduino `LocoAddr-Display.ino` |
 | `schema/` | `locoaddr_display_v2.1_schematic.png`, le schéma annoté et vérifié contre les Gerbers, et `locoaddr_display_v2.1_schematic_original.png`, le schéma d'origine |
 | `fritzing/` | `locoaddr_display_v2.1.fzz`, le fichier Fritzing du circuit imprimé v2.1 (06/2025) |
 | `GERBER/` | `locoaddr_display_v2.1_GERBER.zip`, les fichiers de fabrication du circuit imprimé (100 × 70 mm) |
@@ -70,7 +70,7 @@ La sortie du détecteur v3.0 est tirée vers 5 V par R17 (10 kΩ). Ce niveau dé
 ## Installation du programme
 
 1. Installer la bibliothèque **DCC-LocoAddr** : installer **DCC-LocoAddr** depuis le gestionnaire de bibliothèques Arduino (après publication), ou cloner ce dépôt dans le dossier des bibliothèques Arduino.
-2. Ouvrir `LocoAddr-Display/LocoAddr-Display.ino`.
+2. Ouvrir [`examples/ESP32/LocoAddr-Display/LocoAddr-Display.ino`](../../examples/ESP32/LocoAddr-Display/LocoAddr-Display.ino).
 3. Choisir la carte *ESP32 Dev Module*, puis téléverser le programme.
 
 Les réglages sont regroupés en tête du programme :

@@ -1,6 +1,6 @@
 /*
    LocoAddr - programme de base
-   DCC-LocoAddr v5.0.0
+   DCC-LocoAddr v5.1.0
 
    Lit un détecteur Locoduino LocoAddr (carte v3.1) et affiche sur le moniteur
    série (115200 bauds) l'adresse de la locomotive et, si l'option est montée,
@@ -20,7 +20,11 @@
    https://github.com/BOBILLEChristophe/DCC-LocoAddr
 */
 
-#include <DCC-LocoAddr.h>
+#ifndef ARDUINO_ARCH_ESP32
+#error "Exemple pour ESP32 : pour un Raspberry Pi Pico, ouvrir l'exemple RP2040/LocoAddr"
+#endif
+
+#include <DCC_LocoAddr.h>
 
 // =============================================================================
 // RÉGLAGES

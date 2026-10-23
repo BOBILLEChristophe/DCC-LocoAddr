@@ -26,7 +26,7 @@ Le Mini Display utilise notamment GPIO10 pour la réception du détecteur, GPIO2
 
 | Dossier | Contenu |
 |---|---|
-| `LocoAddr-Display-min/` | le programme Arduino `LocoAddr-Display-min.ino` |
+| [`examples/ESP32/LocoAddr-Display-min/`](../../examples/ESP32/LocoAddr-Display-min/) | le programme Arduino `LocoAddr-Display-min.ino` |
 | `schema/` | `locoaddr_display_min_v3.0_schematic.pdf` et `.png`, le schéma électronique |
 | `fritzing/` | `locoaddr_display_min_v3.0.fzz`, le fichier Fritzing du circuit imprimé « LocoAddr - Mini Display v3.0 » |
 | `GERBER/` | `locoaddr_display_min_v3.0_GERBER.zip`, les fichiers de fabrication (54,8 × 39,8 mm), vérifiés contre le schéma : 10 équipotentielles conformes |
@@ -138,7 +138,7 @@ Le schéma et le premier tableau de cette section décrivent le même montage en
 
 1. Installer la bibliothèque **DCC-LocoAddr** : installer **DCC-LocoAddr** depuis le gestionnaire de bibliothèques Arduino (après publication), ou cloner ce dépôt dans le dossier des bibliothèques Arduino.
 2. Installer la bibliothèque **TM1637** d'Avishay Orpaz, depuis le gestionnaire de bibliothèques de l'IDE.
-3. Ouvrir `examples/LocoAddr-Display-min/LocoAddr-Display-min.ino`.
+3. Ouvrir [`examples/ESP32/LocoAddr-Display-min/LocoAddr-Display-min.ino`](../../examples/ESP32/LocoAddr-Display-min/LocoAddr-Display-min.ino).
 4. Choisir la carte **ESP32C3 Dev Module** et régler **USB CDC On Boot : Enabled**, pour que les messages passent par la prise USB-C.
 5. Téléverser le programme.
 

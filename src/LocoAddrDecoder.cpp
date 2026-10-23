@@ -1,5 +1,5 @@
 /*
-   LocoAddrDecoder.cpp - DCC-LocoAddr v5.0.0
+   LocoAddrDecoder.cpp - DCC-LocoAddr
 
    © Christophe BOBILLE - Locoduino - GPL-3.0
 */

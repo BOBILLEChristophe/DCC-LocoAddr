@@ -1,5 +1,18 @@
 # Historique des versions
 
+## 5.1.0 — 10/2026
+
+- Ajout du support des Raspberry Pi Pico RP2040 et Pico 2 RP2350.
+- Réception par UART matériel ou PIO sur RP2040/RP2350.
+- Séparation de la réception matérielle en `LocoAddrReader_ESP32` et `LocoAddrReader_RP2040`.
+- `LocoAddrDecoder` reste commun aux différentes architectures et indépendant du matériel.
+- La classe publique reste `LocoAddrReader` sur ESP32 comme sur Raspberry Pi Pico.
+- Réorganisation des exemples sous `examples/ESP32/` et `examples/RP2040/`.
+- Ajout des exemples simple et multi-détecteurs pour Raspberry Pi Pico.
+- Ajout des builds PlatformIO RP2040 et RP2350.
+- Builds validés pour ESP32, ESP32-C3, RP2040 et RP2350.
+- Le fonctionnement RP2040/RP2350 sur réseau réel reste à valider.
+
 ## 5.0.1 — 10/2026
 
 - Réorganisation des fichiers matériels sous `hardware/`.

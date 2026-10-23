@@ -1,42 +1,41 @@
 # DCC-LocoAddr
 
-Bibliothèque Arduino qui lit le détecteur Locoduino LocoAddr (**carte v3.1**, voir [`detector`](../detector)) et fournit :
+Bibliothèque Arduino qui lit le détecteur Locoduino LocoAddr (**carte v3.1**, voir [`detector`](../hardware/detector)) et fournit :
 
 - l'**adresse DCC** de la locomotive présente sur le canton : adresse courte, longue ou de consist ;
 - son **sens de pose** sur la voie, si l'option « sens de pose » est montée sur la carte.
 
-Cette version fonctionne sur **ESP32** (classique, S2, S3, C3, C6, H2). Le décodage proprement dit (`LocoAddrDecoder`) ne dépend d'aucun matériel : il pourra servir à des portages vers d'autres cartes, par exemple les Arduino récents ou le Raspberry Pi Pico.
+Microcontrôleurs pris en charge :
 
-Version **5.0.0**. Elle remplace le code des anciens projets `Railcom-detector-on-ESP32`, `Railcom-detector-freeRtos-inClass` et `Railcom-Detector-Display`.
+| Carte | Détecteurs par carte | État |
+|---|---|---|
+| **ESP32** (classique, S2, S3, C3, C6, H2), y compris l'Arduino Nano ESP32 | 2 ou 3, un UART chacun | essayé sur réseau |
+| **Raspberry Pi Pico** (RP2040) | jusqu'à 10 (9 sur Pico W) | **à essayer** : compile, pas encore essayé sur réseau |
+| **Raspberry Pi Pico 2** (RP2350) | jusqu'à 14 (13 sur Pico 2 W) | **à essayer** |
+
+Le décodage proprement dit (`LocoAddrDecoder`) ne dépend d'aucun matériel. Seule la réception (UART, découpage des cutouts) est propre à chaque microcontrôleur. La classe s'appelle `LocoAddrReader` partout ; seul son constructeur change.
+
+Version **5.1.0**. Elle remplace le code des anciens projets `Railcom-detector-on-ESP32`, `Railcom-detector-freeRtos-inClass` et `Railcom-Detector-Display`.
 
 ---
 
 ## Installation
 
-### Arduino IDE
+1. Copier ce dossier `DCC-LocoAddr` (celui qui contient `library.properties`) dans le dossier des bibliothèques Arduino :
+   - Windows : `Documents\Arduino\libraries\` ;
+   - macOS et Linux : `~/Documents/Arduino/libraries/` ou `~/Arduino/libraries/`.
+2. Redémarrer l'IDE Arduino.
+3. Les exemples apparaissent dans *Fichier > Exemples > DCC-LocoAddr*, rangés par microcontrôleur : `ESP32/LocoAddr`, `ESP32/LocoAddr-multi`, `RP2040/LocoAddr`, `RP2040/LocoAddr-multi`.
 
-Après publication dans Arduino Library Manager, rechercher **DCC-LocoAddr** dans le gestionnaire de bibliothèques.
+Cœurs Arduino :
+- **ESP32 :** paquet **esp32 d'Espressif**, en version 2.0.x (ESP-IDF 4.4) comme en version 3.x (ESP-IDF 5.x).
+- **Raspberry Pi Pico :** paquet **Raspberry Pi Pico/RP2040/RP2350** d'Earle Philhower (vérifié avec la version 6.3.0).
 
-Pour travailler directement sur la version GitHub, cloner le dépôt dans le dossier `libraries` du sketchbook Arduino. Le dépôt lui-même est la racine de la bibliothèque : `library.properties`, `src/` et `examples/` se trouvent au premier niveau.
-
-Les exemples apparaissent ensuite dans *Fichier > Exemples > DCC-LocoAddr*.
-
-### PlatformIO
-
-Avant publication dans PlatformIO Registry, la bibliothèque peut être utilisée directement depuis GitHub :
-
-```ini
-lib_deps =
-    https://github.com/BOBILLEChristophe/DCC-LocoAddr.git
-```
-
-Le dépôt contient également un `platformio.ini` permettant de compiler directement les exemples et les afficheurs.
-
-La bibliothèque compile avec le paquet **esp32 d'Espressif**, en version 2.0.x (ESP-IDF 4.4) comme en version 3.x (ESP-IDF 5.x), pour l'ESP32 classique, les ESP32-S2, S3, C3, C6 et H2. Elle n'a pas d'autre dépendance.
+La bibliothèque n'a pas d'autre dépendance.
 
 ---
 
-## Câblage de la carte v3.1
+## Câblage de la carte v3.1 (ESP32)
 
 | Carte v3.1 | ESP32 | Remarque |
 |---|---|---|
@@ -117,7 +116,7 @@ La valeur de DIR dépend du rail sur lequel le décodeur émet, donc de l'orient
 
 Pour l'étalonner, il suffit de le faire une seule fois :
 1. Poser une locomotive cabine 1 vers un repère choisi, par exemple le côté de la gare.
-2. Lire le sens affiché par l'exemple `LocoAddr`.
+2. Lire le sens affiché par l'exemple `LocoAddr` de votre microcontrôleur.
 3. S'il indique `inverse`, mettre `setDirectionInverted(true)` dans le programme.
 
 Le sens n'est connu que lorsqu'une locomotive est validée. Il repasse à `Unknown` quand elle quitte le canton.
@@ -141,9 +140,64 @@ Le sens n'est connu que lorsqu'une locomotive est validée. Il repasse à `Unkno
 
 ---
 
-## Plusieurs détecteurs
+## Raspberry Pi Pico (RP2040, RP2350)
 
-Chaque détecteur utilise son propre UART. Voir l'exemple `LocoAddr-multi`.
+> **Version d'essai.** Le code compile pour le Pico et le Pico 2, mais il n'a pas encore été essayé sur un réseau. Merci de signaler le résultat de vos essais.
+
+### Câblage
+
+| Carte v3.1 | Pico | Remarque |
+|---|---|---|
+| J19 – 5V µC | VBUS (broche 40) | 5 V de l'USB ; alimente le 6N137 (10 à 15 mA par détecteur) |
+| J19 – OUT | une broche GPn | voir ci-dessous |
+| J19 – GND µC | GND | |
+| J22 – VIO | **3V3(OUT)** (broche 36) | **jamais 5 V** : le Pico est en 3,3 V |
+| J22 – DIR | une broche GPn | option sens de pose seulement |
+
+### Utilisation
+
+```cpp
+#include <DCC_LocoAddr.h>
+
+LocoAddrReader detector(1);       // OUT sur GP1, sans DIR
+LocoAddrReader detector2(2, 11);  // OUT sur GP2, DIR sur GP11
+
+void setup() {
+  detector.begin();
+  detector2.begin();
+}
+```
+
+Le reste (`address()`, `direction()`, `stats()`, réglages) est identique à l'ESP32. Il n'y a rien à appeler dans `loop()` : une interruption de minuterie lit tous les détecteurs toutes les 250 µs.
+
+### Ressources et nombre de détecteurs
+
+Chaque détecteur prend, selon sa broche OUT :
+
+- **un UART matériel** si la broche est une broche RX d'UART encore libre : UART0 sur GP1, GP13, GP17 ou GP29 ; UART1 sur GP5, GP9, GP21 ou GP25 ;
+- **sinon une machine d'état PIO**, sur n'importe quelle broche.
+
+| Carte | UART | Machines d'état PIO | Détecteurs au maximum |
+|---|---|---|---|
+| Pico (RP2040) | 2 | 8 | **10** |
+| Pico W | 2 | 7 (une sert au Wi-Fi) | **9** |
+| Pico 2 (RP2350) | 2 | 12 | **14** |
+| Pico 2 W | 2 | 11 | **13** |
+
+`transportName()` indique la ressource prise (« UART0 », « PIO1 SM2 »…). La constante `LocoAddrReader::MAX_READERS` donne le maximum pour la carte choisie.
+
+### Précautions
+
+- **Serial1 et Serial2** : un UART pris par un détecteur n'est plus disponible pour eux. Pour garder Serial1, placer le détecteur sur une broche qui n'est pas une broche RX d'UART, ou appeler `forcePio()` avant `begin()`. Le moniteur série (Serial, par l'USB) n'est pas concerné.
+- **Fonction de rappel** (`setBurstCallback`) : elle s'exécute **sous interruption**. Elle doit seulement copier les octets ; jamais de `Serial.print()` ni de `delay()`. L'exemple `RP2040/LocoAddr` montre comment faire.
+- Les broches GP23, GP24, GP25 et GP29 servent à la carte Pico elle-même : ne pas les utiliser.
+- Les récepteurs PIO ne détectent pas les erreurs de trame : seul le compteur `frameErrors` des UART matériels est renseigné.
+
+---
+
+## Plusieurs détecteurs (ESP32)
+
+Chaque détecteur utilise son propre UART. Voir l'exemple `ESP32/LocoAddr-multi`.
 
 | ESP32 classique | Détecteurs |
 |---|---|

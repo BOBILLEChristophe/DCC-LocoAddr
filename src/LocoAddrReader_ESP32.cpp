@@ -1,8 +1,10 @@
 /*
-   DCC_LocoAddr.cpp - DCC-LocoAddr v5.0.0
+   LocoAddrReader_ESP32.cpp - DCC-LocoAddr
 
    © Christophe BOBILLE - Locoduino - GPL-3.0
 */
+
+#if defined(ARDUINO_ARCH_ESP32)
 
 #include "DCC_LocoAddr.h"
 #include "esp_timer.h"
@@ -308,15 +310,4 @@ LocoAddrStats LocoAddrReader::stats() const
     return s;
 }
 
-const char *LocoAddrReader::directionName(LocoDirection d)
-{
-    switch (d)
-    {
-    case LocoDirection::Normal:
-        return "normal";
-    case LocoDirection::Reversed:
-        return "inverse";
-    default:
-        return "inconnu";
-    }
-}
+#endif // ARDUINO_ARCH_ESP32
