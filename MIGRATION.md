@@ -28,8 +28,8 @@ hardware/
 
 | Ancien projet | Nouveau chemin |
 |---|---|
-| Détecteur ESP32 | `src/` + `examples/LocoAddr/` + `hardware/detector/` |
-| Version FreeRTOS en classe | `src/` + `examples/LocoAddr-multi/` |
+| Détecteur ESP32 | `src/` + `examples/ESP32/LocoAddr/` + `hardware/detector/` |
+| Version FreeRTOS en classe | `src/` + `examples/ESP32/LocoAddr-multi/` |
 | RailCom Detector Display | `hardware/display/` |
 | Mini Display | `hardware/display_min/` |
 

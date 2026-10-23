@@ -1,4 +1,4 @@
 // PlatformIO development wrapper.
-// The canonical Arduino example remains in examples/LocoAddr-multi/LocoAddr-multi.ino.
+// The canonical Arduino example remains in examples/ESP32/LocoAddr-multi/LocoAddr-multi.ino.
 #include <Arduino.h>
-#include "../../../examples/LocoAddr-multi/LocoAddr-multi.ino"
+#include "../../../examples/ESP32/LocoAddr-multi/LocoAddr-multi.ino"

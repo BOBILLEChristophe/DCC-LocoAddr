@@ -1,8 +1,8 @@
 /*
-   LocoAddrDecoder.h - DCC-LocoAddr v5.0.0
+   LocoAddrDecoder.h - DCC-LocoAddr
 
    Décodage RailCom (canal 1 : adresse de la locomotive) et sens de pose,
-   indépendant du matériel : aucune dépendance à l'ESP32 ni à Arduino.
+   indépendant du matériel : aucune dépendance au microcontrôleur ni à Arduino.
    La classe LocoAddrReader (DCC_LocoAddr.h) lui fournit les octets reçus,
    regroupés par cutout ("rafales").
 
@@ -28,6 +28,12 @@ enum class LocoDirection : int8_t
     Unknown = 0,
     Normal = 1
 };
+
+// Texte du sens de pose : "normal", "inverse" ou "inconnu"
+inline const char *locoDirectionName(LocoDirection d)
+{
+    return (d == LocoDirection::Normal) ? "normal" : (d == LocoDirection::Reversed) ? "inverse" : "inconnu";
+}
 
 struct LocoAddrStats
 {

@@ -15,3 +15,7 @@ setDirectionConfirmations	KEYWORD2
 setDirectionInverted	KEYWORD2
 setBurstCallback	KEYWORD2
 DCC_LOCOADDR_VERSION	LITERAL1
+forcePio	KEYWORD2
+transportName	KEYWORD2
+MAX_READERS	LITERAL1
+NO_PIN	LITERAL1

@@ -30,6 +30,10 @@ pio run -e esp32-basic
 pio run -e esp32-multi
 pio run -e esp32-display
 pio run -e esp32c3-mini-display
+pio run -e rp2040-basic
+pio run -e rp2040-multi
+pio run -e rp2350-basic
+pio run -e rp2350-multi
 pio pkg pack
 ```
 

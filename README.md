@@ -24,13 +24,7 @@ centrale DCC ──► détecteur LocoAddr v3.1 ──► canton isolé
 
 ![Carte détecteur LocoAddr v3.0 montée](hardware/detector/photos/locoaddr_detector_v3.0_photo.jpg)
 
-## Un seul dépôt, une seule bibliothèque
-
-Ce dépôt remplace les anciens projets :
-
-- `Railcom-detector-on-ESP32` ;
-- `Railcom-detector-freeRtos-inClass` ;
-- `Railcom-Detector-Display`.
+## DCC-LocoAddr est une bibliothèque accessible directement à partir de votre environnement de travail, IDE Arduino ou PlatformIO.
 
 À partir de la version **5.0.0**, le décodeur est une bibliothèque commune placée directement à la racine du dépôt, afin d'être compatible avec **Arduino Library Manager** et **PlatformIO Registry**.
 
@@ -55,9 +49,9 @@ DCC-LocoAddr/
 
 | Dossier | Contenu |
 |---|---|
-| [`detector`](detector) | Détecteur **LocoAddr v3.1** : schéma, Fritzing, Gerbers, BOM, photos |
-| [`display`](display) | **LocoAddr Display** : ESP32-WROOM-32 + afficheur 7 segments 4 digits |
-| [`display_min`](display_min) | **LocoAddr Mini Display** : ESP32-C3 SuperMini + TM1637 |
+| [`detector`](hardware/detector) | Détecteur **LocoAddr v3.1** : schéma, Fritzing, Gerbers, BOM, photos |
+| [`display`](hardware/display) | **LocoAddr Display** : ESP32-WROOM-32 + afficheur 7 segments 4 digits |
+| [`display_min`](hardware/display_min) | **LocoAddr Mini Display** : ESP32-C3 SuperMini + TM1637 |
 
 Chaque dossier matériel contient ses propres schémas, fichiers de fabrication et documentation.
 
@@ -65,19 +59,19 @@ Chaque dossier matériel contient ses propres schémas, fichiers de fabrication 
 
 La bibliothèque fournit :
 
-- réception par UART matériel ESP32 à 250 kbit/s ;
-- driver UART ESP-IDF et réception événementielle ;
+- réception à 250 kbit/s sur ESP32, RP2040 et RP2350 ;
+- UART matériel sur ESP32 ; UART matériel ou PIO sur RP2040/RP2350 ;
 - regroupement des octets par cutout ;
 - décodage 4-out-of-8 ;
 - traitement ADR1 / ADR2 ;
 - adresses DCC courtes, longues et de consist ;
 - validation d'une nouvelle adresse ;
 - détection de perte ;
-- lecture optionnelle du sens de pose ;
-- plusieurs détecteurs, un UART par instance ;
+- lecture optionnelle du sens de pose de la locomotive sur les rails ;
+- plusieurs détecteurs : jusqu'à 3 sur ESP32, 10 sur RP2040 et 14 sur RP2350 ;
 - statistiques et callback de diagnostic.
 
-Le coeur `LocoAddrDecoder` ne dépend ni d'Arduino ni de l'ESP32 et peut être testé sur PC.
+Le coeur `LocoAddrDecoder` ne dépend ni d'Arduino ni du microcontrôleur et peut être testé sur PC.
 
 Documentation détaillée : [`docs/LIBRARY.md`](docs/LIBRARY.md).
 
@@ -86,7 +80,7 @@ Documentation détaillée : [`docs/LIBRARY.md`](docs/LIBRARY.md).
 Après publication dans Arduino Library Manager, rechercher :
 
 ```text
-DCC-LocoAddr
+Menu > Gérer les bibliothèques > Rechercher : DCC-LocoAddr
 ```
 
 Pour une installation manuelle de développement, cloner le dépôt directement dans le dossier `libraries` du sketchbook Arduino.
@@ -117,6 +111,10 @@ esp32-basic
 esp32-multi
 esp32-display
 esp32c3-mini-display
+rp2040-basic
+rp2040-multi
+rp2350-basic
+rp2350-multi
 native-decoder
 ```
 
@@ -126,14 +124,16 @@ Exemples :
 pio run -e esp32-basic
 pio run -e esp32-display
 pio run -e esp32c3-mini-display
+pio run -e rp2040-basic
+pio run -e rp2350-basic
 ```
 
 ## Démarrage rapide
 
-1. Monter un détecteur v3.1 en suivant [`hardware/detector/README.md`](hardware/detector/README.md). **U5 doit être un 74HC02 ou 74HCT02, pas un 7402 TTL.**
+1. Monter un détecteur v3.1 en suivant [`hardware/detector/README.md`](hardware/detector/README.md). **U5 doit être un 74HC02 ou 74HCT02.**
 2. Relier côté microcontrôleur : `5V µC` au 5 V, `GND µC` au GND, `VIO` au 3,3 V d'un ESP32 et `OUT` à l'entrée RX choisie.
-3. Compiler `examples/LocoAddr/LocoAddr.ino` ou l'un des afficheurs.
-4. La centrale ou le booster doit générer un cutout conforme à la communication bidirectionnelle DCC.
+3. Compiler `examples/ESP32/LocoAddr/LocoAddr.ino` ou l'un des afficheurs.
+4. La centrale ou le booster doit générer un cutout conforme à la communication bidirectionnelle DCC RailCom®.
 
 ## Développement et tests
 
