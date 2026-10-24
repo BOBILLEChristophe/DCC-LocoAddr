@@ -1,4 +1,12 @@
-# DCC-LocoAddr — lecture et affichage de l'adresse DCC des locomotives
+# DCC-LocoAddr
+
+[Français](#français) | [English](#english)
+
+---
+
+# Français
+
+## DCC-LocoAddr — lecture et affichage de l'adresse DCC des locomotives
 
 Ce dépôt regroupe le matériel et le logiciel nécessaires pour lire l'adresse DCC d'une locomotive à partir de la communication bidirectionnelle sur la voie, puis l'exploiter ou l'afficher.
 
@@ -20,6 +28,7 @@ centrale DCC ──► détecteur LocoAddr v3.1 ──► canton isolé
                      ├── LocoAddr Display
                      └── LocoAddr Mini Display
 ```
+
 ### Détecteur Railcom monté
 
 ![Carte détecteur LocoAddr v3.0 montée](hardware/detector/photos/locoaddr_detector_v3.0_photo.jpg)
@@ -151,7 +160,168 @@ python3 scripts/check_version.py
 
 La CI GitHub exécute également Arduino Lint, les tests natifs, les builds PlatformIO et la validation du paquet `library.json`.
 
-
 ## Licence
+
+GPL-3.0 — © Christophe BOBILLE / Locoduino.
+
+---
+
+# English
+
+## DCC-LocoAddr — reading and displaying locomotive DCC addresses
+
+This repository contains the hardware and software required to read the DCC address of a locomotive from bidirectional communication on the track, and then use or display that information.
+
+The transmission method described by NMRA S-9.3.2 and associated with the DCC protocol is called “RailCom®”.
+
+*RailCom® is a registered trademark of Lenz Elektronik GmbH. This project is neither affiliated with nor endorsed by Lenz Elektronik. The name is used here only to refer to the bidirectional communication method described by the NMRA.*
+
+```text
+DCC command station ──► LocoAddr v3.1 detector ──► isolated track section
+                              │ OUT (isolated UART, 250 kbit/s)
+                              ▼
+                        ESP32 + DCC-LocoAddr
+                              │
+                              ├── DCC address
+                              ├── locomotive orientation (optional)
+                              └── statistics / diagnostics
+                              │
+                              ├── custom application
+                              ├── LocoAddr Display
+                              └── LocoAddr Mini Display
+```
+
+### Assembled RailCom detector
+
+![Assembled LocoAddr v3.0 detector board](hardware/detector/photos/locoaddr_detector_v3.0_photo.jpg)
+
+## DCC-LocoAddr is a library that can be used directly from your development environment, Arduino IDE or PlatformIO.
+
+Starting with version **5.0.0**, the decoder is provided as a common library located directly at the root of the repository, making it compatible with **Arduino Library Manager** and **PlatformIO Registry**.
+
+## Repository structure
+
+```text
+DCC-LocoAddr/
+├── library.properties          # Arduino manifest
+├── library.json                # PlatformIO manifest
+├── platformio.ini              # PlatformIO development project
+├── src/                        # DCC-LocoAddr library
+├── examples/                   # Arduino examples
+├── extras/tests/               # decoder tests for PC
+├── hardware/detector/          # LocoAddr v3.1 detector
+├── hardware/display/           # LocoAddr Display
+├── hardware/display_min/       # LocoAddr Mini Display
+├── scripts/                    # local validation / release tools
+└── .github/workflows/          # CI + PlatformIO publication
+```
+
+## Hardware
+
+| Folder | Contents |
+|---|---|
+| [`detector`](hardware/detector) | **LocoAddr v3.1** detector: schematic, Fritzing files, Gerbers, BOM, photos |
+| [`display`](hardware/display) | **LocoAddr Display**: ESP32-WROOM-32 + 4-digit 7-segment display |
+| [`display_min`](hardware/display_min) | **LocoAddr Mini Display**: ESP32-C3 SuperMini + TM1637 |
+
+Each hardware folder contains its own schematics, manufacturing files and documentation.
+
+## DCC-LocoAddr library
+
+The library provides:
+
+- 250 kbit/s reception on ESP32, RP2040 and RP2350;
+- hardware UART on ESP32; hardware UART or PIO on RP2040/RP2350;
+- grouping of received bytes by cutout;
+- 4-out-of-8 decoding;
+- ADR1 / ADR2 processing;
+- short, long and consist DCC addresses;
+- validation of newly detected addresses;
+- locomotive loss detection;
+- optional detection of locomotive orientation on the track;
+- multiple detectors: up to 3 on ESP32, 10 on RP2040 and 14 on RP2350;
+- statistics and diagnostic callback.
+
+The `LocoAddrDecoder` core does not depend on Arduino or on any specific microcontroller and can be tested on a PC.
+
+Detailed documentation: [`docs/LIBRARY.md`](docs/LIBRARY.md).
+
+## Arduino IDE
+
+After publication in Arduino Library Manager, search for:
+
+```text
+Menu > Manage Libraries > Search: DCC-LocoAddr
+```
+
+For a manual development installation, clone the repository directly into the `libraries` folder of your Arduino sketchbook.
+
+The examples are available under:
+
+```text
+File > Examples > DCC-LocoAddr
+```
+
+## PlatformIO
+
+The repository contains a `library.json` manifest ready for PlatformIO Registry.
+
+Before publication in the Registry, an external project can already use the library directly from GitHub:
+
+```ini
+lib_deps =
+    https://github.com/BOBILLEChristophe/DCC-LocoAddr.git
+```
+
+The repository itself is also a PlatformIO development project. Simply open the repository root folder in VS Code / PlatformIO.
+
+Available environments:
+
+```text
+esp32-basic
+esp32-multi
+esp32-display
+esp32c3-mini-display
+rp2040-basic
+rp2040-multi
+rp2350-basic
+rp2350-multi
+native-decoder
+```
+
+Examples:
+
+```bash
+pio run -e esp32-basic
+pio run -e esp32-display
+pio run -e esp32c3-mini-display
+pio run -e rp2040-basic
+pio run -e rp2350-basic
+```
+
+## Quick start
+
+1. Assemble a v3.1 detector by following [`hardware/detector/README.md`](hardware/detector/README.md). **U5 must be a 74HC02 or 74HCT02.**
+2. On the microcontroller side, connect `5V µC` to 5 V, `GND µC` to GND, `VIO` to the 3.3 V supply of an ESP32, and `OUT` to the selected RX input.
+3. Compile `examples/ESP32/LocoAddr/LocoAddr.ino` or one of the display examples.
+4. The command station or booster must generate a cutout compatible with RailCom® DCC bidirectional communication.
+
+## Development and testing
+
+Run the hardware-independent decoder test:
+
+```bash
+./scripts/test_decoder.sh
+```
+
+Check version number consistency:
+
+```bash
+python3 scripts/check_version.py
+```
+
+GitHub CI also runs Arduino Lint, native tests, PlatformIO builds and validation of the `library.json` package.
+
+## License
 
 GPL-3.0 — © Christophe BOBILLE / Locoduino.
