@@ -33,6 +33,14 @@ centrale DCC ──► détecteur LocoAddr v3.1 ──► canton isolé
 
 ![Carte détecteur LocoAddr v3.0 montée](hardware/detector/photos/locoaddr_detector_v3.0_photo.jpg)
 
+### Mini Display ESP32-C3
+
+![Mini Display ESP32-C3](hardware/display_min/photos/locoaddr_display_min_prototype.jpg)
+
+### Display ESP32
+
+![Display ESP32](hardware/display/photos/locoaddr_display_photo.jpg)
+
 ## DCC-LocoAddr est une bibliothèque accessible directement à partir de votre environnement de travail, IDE Arduino ou PlatformIO.
 
 À partir de la version **5.0.0**, le décodeur est une bibliothèque commune placée directement à la racine du dépôt, afin d'être compatible avec **Arduino Library Manager** et **PlatformIO Registry**.
@@ -194,6 +202,14 @@ DCC command station ──► LocoAddr v3.1 detector ──► isolated track se
 ### Assembled RailCom detector
 
 ![Assembled LocoAddr v3.0 detector board](hardware/detector/photos/locoaddr_detector_v3.0_photo.jpg)
+
+### Mini Display ESP32-C3
+
+![Mini Display ESP32-C3](hardware/display_min/photos/locoaddr_display_min_prototype.jpg)
+
+### Display ESP32
+
+![Display ESP32](hardware/display/photos/locoaddr_display_photo.jpg)
 
 ## DCC-LocoAddr is a library that can be used directly from your development environment, Arduino IDE or PlatformIO.
 
