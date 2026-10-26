@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/schema/library.json",
   "name": "DCC-LocoAddr",
   "version": "5.1.0",
-  "description": "Reads DCC locomotive addresses from bidirectional track feedback on ESP32 and RP2040/RP2350.",
+  "description": "Reads DCC locomotive addresses from bidirectional track feedback on ESP32, RP2040/RP2350 and Arduino Mega 2560.",
   "keywords": [
     "dcc",
     "locomotive",
@@ -13,7 +13,9 @@
     "uart",
     "model-railway",
     "rp2040",
-    "pico"
+    "pico",
+    "avr",
+    "mega2560"
   ],
   "homepage": "https://www.locoduino.org/",
   "repository": {
@@ -33,13 +35,15 @@
   ],
   "platforms": [
     "espressif32",
-    "raspberrypi"
+    "raspberrypi",
+    "atmelavr"
   ],
   "headers": [
     "DCC_LocoAddr.h"
   ],
   "examples": [
-    "examples/*/*/*.ino"
+    "examples/*/*/*.ino",
+    "examples/*/*/*/*.ino"
   ],
   "export": {
     "exclude": [

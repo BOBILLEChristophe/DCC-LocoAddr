@@ -12,6 +12,7 @@ Microcontrôleurs pris en charge :
 | **ESP32** (classique, S2, S3, C3, C6, H2), y compris l'Arduino Nano ESP32 | 2 ou 3, un UART chacun | essayé sur réseau |
 | **Raspberry Pi Pico** (RP2040) | jusqu'à 10 (9 sur Pico W) | **à essayer** : compile, pas encore essayé sur réseau |
 | **Raspberry Pi Pico 2** (RP2350) | jusqu'à 14 (13 sur Pico 2 W) | **à essayer** |
+| **Arduino Mega 2560** (AVR) | jusqu'à 3 sur Serial1, Serial2 et Serial3 | essayé sur réseau |
 
 Le décodage proprement dit (`LocoAddrDecoder`) ne dépend d'aucun matériel. Seule la réception (UART, découpage des cutouts) est propre à chaque microcontrôleur. La classe s'appelle `LocoAddrReader` partout ; seul son constructeur change.
 
@@ -25,11 +26,12 @@ Version **5.1.0**. Elle remplace le code des anciens projets `Railcom-detector-o
    - Windows : `Documents\Arduino\libraries\` ;
    - macOS et Linux : `~/Documents/Arduino/libraries/` ou `~/Arduino/libraries/`.
 2. Redémarrer l'IDE Arduino.
-3. Les exemples apparaissent dans *Fichier > Exemples > DCC-LocoAddr*, rangés par microcontrôleur : `ESP32/LocoAddr`, `ESP32/LocoAddr-multi`, `RP2040/LocoAddr`, `RP2040/LocoAddr-multi`.
+3. Les exemples apparaissent dans *Fichier > Exemples > DCC-LocoAddr*, rangés par microcontrôleur : `ESP32/LocoAddr`, `ESP32/LocoAddr-multi`, `RP2040/LocoAddr`, `RP2040/LocoAddr-multi` et `AVR/Mega/LocoAddr-3det`.
 
 Cœurs Arduino :
 - **ESP32 :** paquet **esp32 d'Espressif**, en version 2.0.x (ESP-IDF 4.4) comme en version 3.x (ESP-IDF 5.x).
 - **Raspberry Pi Pico :** paquet **Raspberry Pi Pico/RP2040/RP2350** d'Earle Philhower (vérifié avec la version 6.3.0).
+- **Arduino Mega 2560 :** paquet **Arduino AVR Boards** ; réception sur les UART matériels `Serial1`, `Serial2` et `Serial3`.
 
 La bibliothèque n'a pas d'autre dépendance.
 
@@ -137,6 +139,52 @@ Le sens n'est connu que lorsqu'une locomotive est validée. Il repasse à `Unkno
    - Une adresse déjà validée est confirmée par chaque lecture correcte.
    - Elle est perdue après 1 s sans lecture.
 6. **Sens de pose.** Après chaque cutout qui contient un ADR1 ou un ADR2 valide, DIR est lu. La bascule 74HC74 de la carte vient alors d'être chargée par les octets de la locomotive. Le sens ne change qu'après 3 lectures identiques.
+
+---
+
+## Arduino Mega 2560 (AVR)
+
+L'Arduino Mega 2560 possède quatre UART matériels. `Serial` est conservé pour le moniteur série USB ; `Serial1`, `Serial2` et `Serial3` permettent donc de raccorder jusqu'à trois détecteurs LocoAddr simultanément.
+
+À 16 MHz, l'USART matériel de l'ATmega2560 permet la réception à 250000 bauds.
+
+### Câblage
+
+| Carte v3.1 | Arduino Mega 2560 | Remarque |
+|---|---|---|
+| J19 – 5V µC | 5V | alimente le 6N137 |
+| J19 – OUT | RX1 broche 19, RX2 broche 17 ou RX3 broche 15 | 250 kbit/s |
+| J19 – GND µC | GND | |
+| J22 – VIO | **5V** | niveau logique adapté au Mega 2560 |
+| J22 – DIR | entrée numérique au choix | option sens de pose seulement |
+
+### Utilisation
+
+```cpp
+#include <DCC_LocoAddr.h>
+
+LocoAddrReader detector1(Serial1);
+LocoAddrReader detector2(Serial2);
+LocoAddrReader detector3(Serial3);
+
+void setup()
+{
+    detector1.begin();
+    detector2.begin();
+    detector3.begin();
+}
+
+void loop()
+{
+    detector1.poll();
+    detector2.poll();
+    detector3.poll();
+}
+```
+
+`poll()` doit être appelée aussi régulièrement que possible depuis `loop()`.
+
+L'exemple complet se trouve dans `examples/AVR/Mega/LocoAddr-3det/LocoAddr-3det.ino`.
 
 ---
 

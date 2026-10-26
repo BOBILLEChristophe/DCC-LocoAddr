@@ -76,8 +76,8 @@ Chaque dossier matériel contient ses propres schémas, fichiers de fabrication 
 
 La bibliothèque fournit :
 
-- réception à 250 kbit/s sur ESP32, RP2040 et RP2350 ;
-- UART matériel sur ESP32 ; UART matériel ou PIO sur RP2040/RP2350 ;
+- réception à 250 kbit/s sur ESP32, RP2040, RP2350 et Arduino Mega 2560 ;
+- UART matériel sur ESP32 et Arduino Mega 2560 ; UART matériel ou PIO sur RP2040/RP2350 ;
 - regroupement des octets par cutout ;
 - décodage 4-out-of-8 ;
 - traitement ADR1 / ADR2 ;
@@ -85,7 +85,7 @@ La bibliothèque fournit :
 - validation d'une nouvelle adresse ;
 - détection de perte ;
 - lecture optionnelle du sens de pose de la locomotive sur les rails ;
-- plusieurs détecteurs : jusqu'à 3 sur ESP32, 10 sur RP2040 et 14 sur RP2350 ;
+- plusieurs détecteurs : jusqu'à 3 sur ESP32 et Arduino Mega 2560, 10 sur RP2040 et 14 sur RP2350 ;
 - statistiques et callback de diagnostic.
 
 Le coeur `LocoAddrDecoder` ne dépend ni d'Arduino ni du microcontrôleur et peut être testé sur PC.
@@ -107,6 +107,9 @@ Les exemples apparaissent dans :
 ```text
 Fichier > Exemples > DCC-LocoAddr
 ```
+
+Pour AVR, un seul exemple est proposé : `examples/AVR/Mega/LocoAddr-3det/LocoAddr-3det.ino`.
+Il utilise trois détecteurs indépendants sur `Serial1`, `Serial2` et `Serial3` de l'Arduino Mega 2560.
 
 ## PlatformIO
 
@@ -132,6 +135,7 @@ rp2040-basic
 rp2040-multi
 rp2350-basic
 rp2350-multi
+avr-mega-3det
 native-decoder
 ```
 
@@ -143,13 +147,14 @@ pio run -e esp32-display
 pio run -e esp32c3-mini-display
 pio run -e rp2040-basic
 pio run -e rp2350-basic
+pio run -e avr-mega-3det
 ```
 
 ## Démarrage rapide
 
 1. Monter un détecteur v3.1 en suivant [`hardware/detector/README.md`](hardware/detector/README.md). **U5 doit être un 74HC02 ou 74HCT02.**
-2. Relier côté microcontrôleur : `5V µC` au 5 V, `GND µC` au GND, `VIO` au 3,3 V d'un ESP32 et `OUT` à l'entrée RX choisie.
-3. Compiler `examples/ESP32/LocoAddr/LocoAddr.ino` ou l'un des afficheurs.
+2. Relier côté microcontrôleur : `5V µC` au 5 V, `GND µC` au GND, `VIO` à la tension logique du microcontrôleur (3,3 V pour ESP32/RP2040/RP2350, 5 V pour Arduino Mega 2560) et `OUT` à l'entrée RX choisie.
+3. Compiler l'exemple correspondant à la carte, par exemple `examples/ESP32/LocoAddr/LocoAddr.ino` ou `examples/AVR/Mega/LocoAddr-3det/LocoAddr-3det.ino`.
 4. La centrale ou le booster doit générer un cutout conforme à la communication bidirectionnelle DCC RailCom®.
 
 ## Développement et tests
@@ -246,8 +251,8 @@ Each hardware folder contains its own schematics, manufacturing files and docume
 
 The library provides:
 
-- 250 kbit/s reception on ESP32, RP2040 and RP2350;
-- hardware UART on ESP32; hardware UART or PIO on RP2040/RP2350;
+- 250 kbit/s reception on ESP32, RP2040, RP2350 and Arduino Mega 2560;
+- hardware UART on ESP32 and Arduino Mega 2560; hardware UART or PIO on RP2040/RP2350;
 - grouping of received bytes by cutout;
 - 4-out-of-8 decoding;
 - ADR1 / ADR2 processing;
@@ -255,7 +260,7 @@ The library provides:
 - validation of newly detected addresses;
 - locomotive loss detection;
 - optional detection of locomotive orientation on the track;
-- multiple detectors: up to 3 on ESP32, 10 on RP2040 and 14 on RP2350;
+- multiple detectors: up to 3 on ESP32 and Arduino Mega 2560, 10 on RP2040 and 14 on RP2350;
 - statistics and diagnostic callback.
 
 The `LocoAddrDecoder` core does not depend on Arduino or on any specific microcontroller and can be tested on a PC.
@@ -277,6 +282,9 @@ The examples are available under:
 ```text
 File > Examples > DCC-LocoAddr
 ```
+
+For AVR, a single example is provided: `examples/AVR/Mega/LocoAddr-3det/LocoAddr-3det.ino`.
+It uses three independent detectors on `Serial1`, `Serial2` and `Serial3` of the Arduino Mega 2560.
 
 ## PlatformIO
 
@@ -302,6 +310,7 @@ rp2040-basic
 rp2040-multi
 rp2350-basic
 rp2350-multi
+avr-mega-3det
 native-decoder
 ```
 
@@ -313,13 +322,14 @@ pio run -e esp32-display
 pio run -e esp32c3-mini-display
 pio run -e rp2040-basic
 pio run -e rp2350-basic
+pio run -e avr-mega-3det
 ```
 
 ## Quick start
 
 1. Assemble a v3.1 detector by following [`hardware/detector/README.md`](hardware/detector/README.md). **U5 must be a 74HC02 or 74HCT02.**
-2. On the microcontroller side, connect `5V µC` to 5 V, `GND µC` to GND, `VIO` to the 3.3 V supply of an ESP32, and `OUT` to the selected RX input.
-3. Compile `examples/ESP32/LocoAddr/LocoAddr.ino` or one of the display examples.
+2. On the microcontroller side, connect `5V µC` to 5 V, `GND µC` to GND, `VIO` to the logic voltage of the microcontroller (3.3 V for ESP32/RP2040/RP2350, 5 V for Arduino Mega 2560), and `OUT` to the selected RX input.
+3. Compile the example matching the board, for example `examples/ESP32/LocoAddr/LocoAddr.ino` or `examples/AVR/Mega/LocoAddr-3det/LocoAddr-3det.ino`.
 4. The command station or booster must generate a cutout compatible with RailCom® DCC bidirectional communication.
 
 ## Development and testing
