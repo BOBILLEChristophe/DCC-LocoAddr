@@ -1,5 +1,17 @@
 # Historique des versions
 
+## 5.1.1 — 10/2026
+
+- Ajout d'un exemple complet Raspberry Pi Pico W avec plusieurs détecteurs LocoAddr et transmission vers Rocrail par LocoNet over TCP (LbServer).
+- Configuration d'exemple avec 4 détecteurs, extensible jusqu'à 8 cantons par Raspberry Pi Pico W.
+- Envoi des identifications de locomotives par messages LocoNet `OPC_MULTI_SENSE`.
+- Ajout d'une documentation détaillée de configuration Rocrail avec schémas, photographies et captures d'écran.
+- Ajout d'une démonstration vidéo du fonctionnement réel avec plusieurs locomotives et plusieurs cantons.
+- Compatibilité d'utilisation avec JMRI via LocoNet over TCP.
+- Ajout d'un environnement PlatformIO dédié au Pico W.
+- Ajout du build Pico W à la CI GitHub.
+- Aucun changement de l'API publique de la bibliothèque.
+
 ## 5.1.0 — 10/2026
 
 - Ajout du support AVR pour Arduino Mega 2560, avec jusqu'à 3 détecteurs sur Serial1, Serial2 et Serial3.

@@ -133,6 +133,7 @@ esp32-display
 esp32c3-mini-display
 rp2040-basic
 rp2040-multi
+rp2040-rocrail-loconet-wifi
 rp2350-basic
 rp2350-multi
 avr-mega-3det
@@ -146,18 +147,36 @@ pio run -e esp32-basic
 pio run -e esp32-display
 pio run -e esp32c3-mini-display
 pio run -e rp2040-basic
+pio run -e rp2040-rocrail-loconet-wifi
 pio run -e rp2350-basic
 pio run -e avr-mega-3det
 ```
 
-## Intégration Rocrail / LocoNet over TCP
+## Exemple vedette : identification automatique dans Rocrail avec Raspberry Pi Pico W
 
-Un exemple complet montre comment utiliser un **Raspberry Pi Pico W** avec plusieurs détecteurs **DCC-LocoAddr** pour identifier automatiquement les locomotives dans Rocrail.
+**DCC-LocoAddr** permet de réaliser une chaîne complète d’identification automatique des locomotives, depuis la voie jusqu’au logiciel de gestion du réseau.
 
-La configuration fournie utilise **4 cantons** et peut être étendue jusqu’à **8 cantons par Raspberry Pi Pico W**. Les informations sont transmises en Wi-Fi par **LocoNet over TCP (LbServer)** à l’aide de messages `OPC_MULTI_SENSE`.
+Un **Raspberry Pi Pico W** centralise plusieurs détecteurs LocoAddr, identifie la locomotive présente sur chaque section de voie et transmet les informations en **Wi-Fi** à **Rocrail** au moyen de **LocoNet over TCP (LbServer)**.
 
-- [Documentation complète : Pico W + LocoNet + Rocrail](docs/integration/rocrail-loconet-pico-wifi.md)
-- [Exemple Arduino](examples/RP2040/Rocrail-LocoNet-Pico_WiFi/)
+La configuration fournie dans le dépôt utilise **4 détecteurs**, mais l’application réelle présentée ici fonctionne avec **8 détecteurs / 8 cantons sur un seul Raspberry Pi Pico W**.
+
+![Application DCC-LocoAddr avec Raspberry Pi Pico W et 8 détecteurs](docs/assets/rocrail-loconet-pico-wifi/application-8-detectors.jpg)
+
+### Ce que montre cette application
+
+- jusqu’à **8 détecteurs LocoAddr** reliés à un seul Pico W ;
+- identification de l’adresse DCC de la locomotive sur chaque canton ;
+- communication **Wi-Fi**, sans liaison série avec le PC ;
+- serveur **LocoNet over TCP / LbServer** intégré au Pico W ;
+- transmission des identifications par messages LocoNet `OPC_MULTI_SENSE` ;
+- intégration directe dans **Rocrail** ;
+- utilisation également possible avec **JMRI** et potentiellement avec d’autres logiciels compatibles LocoNet over TCP.
+
+➡️ [Documentation complète : Pico W + LocoNet + Rocrail](docs/integration/rocrail-loconet-pico-wifi.md)
+
+➡️ [Exemple](examples/RP2040/Rocrail-LocoNet-Pico_WiFi/)
+
+▶️ [Voir la démonstration vidéo](https://youtu.be/57QW2-mhkzE)
 
 ## Démarrage rapide
 
@@ -317,6 +336,7 @@ esp32-display
 esp32c3-mini-display
 rp2040-basic
 rp2040-multi
+rp2040-rocrail-loconet-wifi
 rp2350-basic
 rp2350-multi
 avr-mega-3det
@@ -330,18 +350,36 @@ pio run -e esp32-basic
 pio run -e esp32-display
 pio run -e esp32c3-mini-display
 pio run -e rp2040-basic
+pio run -e rp2040-rocrail-loconet-wifi
 pio run -e rp2350-basic
 pio run -e avr-mega-3det
 ```
 
-## Rocrail / LocoNet over TCP integration
+## Featured example: automatic locomotive identification in Rocrail with Raspberry Pi Pico W
 
-A complete example shows how to use a **Raspberry Pi Pico W** with several **DCC-LocoAddr** detectors to automatically identify locomotives in Rocrail.
+**DCC-LocoAddr** can be used to build a complete automatic locomotive identification chain, from the track to the layout control software.
 
-The supplied configuration uses **4 blocks** and can be extended up to **8 blocks per Raspberry Pi Pico W**. Identification information is sent over Wi-Fi using **LocoNet over TCP (LbServer)** and `OPC_MULTI_SENSE` messages.
+A **Raspberry Pi Pico W** collects data from several LocoAddr detectors, identifies the locomotive present on each isolated track section and sends the information over **Wi-Fi** to **Rocrail** using **LocoNet over TCP (LbServer)**.
 
-- [Complete documentation: Pico W + LocoNet + Rocrail](docs/integration/rocrail-loconet-pico-wifi.md)
-- [Arduino example](examples/RP2040/Rocrail-LocoNet-Pico_WiFi/)
+The supplied example is configured for **4 detectors**, while the real application shown here operates with **8 detectors / 8 blocks on a single Raspberry Pi Pico W**.
+
+![DCC-LocoAddr application with Raspberry Pi Pico W and 8 detectors](docs/assets/rocrail-loconet-pico-wifi/application-8-detectors.jpg)
+
+### What this application demonstrates
+
+- up to **8 LocoAddr detectors** connected to one Pico W;
+- DCC locomotive address identification on each block;
+- **Wi-Fi** communication with no serial connection to the computer;
+- an embedded **LocoNet over TCP / LbServer** server;
+- locomotive identification using LocoNet `OPC_MULTI_SENSE` messages;
+- direct integration with **Rocrail**;
+- use with **JMRI** and potentially other LocoNet over TCP compatible software.
+
+➡️ [Complete documentation: Pico W + LocoNet + Rocrail](docs/integration/rocrail-loconet-pico-wifi.md)
+
+➡️ [Example](examples/RP2040/Rocrail-LocoNet-Pico_WiFi/)
+
+▶️ [Watch the demonstration video](https://youtu.be/57QW2-mhkzE)
 
 ## Quick start
 

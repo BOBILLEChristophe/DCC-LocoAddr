@@ -14,6 +14,72 @@ Rocrail peut ainsi connaître non seulement l'occupation du bloc, mais égalemen
 
 ---
 
+## Une application complète de DCC-LocoAddr
+
+Cet exemple va au-delà de la simple lecture d’une adresse DCC : il montre comment plusieurs détecteurs LocoAddr peuvent constituer un véritable système d’identification des trains, directement exploitable par un logiciel de gestion de réseau.
+
+Un seul **Raspberry Pi Pico W** collecte les informations provenant de plusieurs sections de voie et les transmet sur le réseau local par **LocoNet over TCP**.
+
+La configuration fournie avec l’exemple utilise 4 détecteurs afin de rester simple à reproduire. Le montage réel présenté ici fonctionne avec **8 détecteurs sur un même Raspberry Pi Pico W**.
+
+![Application complète avec plusieurs locomotives, détecteurs LocoAddr et Raspberry Pi Pico W](../assets/rocrail-loconet-pico-wifi/application-8-detectors.jpg)
+
+Chaque section de voie fournit ainsi deux informations à Rocrail :
+
+- **occupation** : une locomotive est présente ou non ;
+- **identification** : quelle adresse DCC est actuellement présente sur cette section.
+
+La chaîne de traitement devient :
+
+```text
+Voie DCC
+   │
+   ▼
+Cutout RailCom
+   │
+   ▼
+Détecteur LocoAddr
+   │
+   ▼
+Adresse DCC de la locomotive
+   │
+   ▼
+Raspberry Pi Pico W
+   │
+   ▼
+Wi-Fi / TCP
+   │
+   ▼
+LbServer / LocoNet OPC_MULTI_SENSE
+   │
+   ▼
+Rocrail
+   │
+   ▼
+Locomotive identifiée dans le bloc
+```
+
+Aucune liaison série avec le PC n’est nécessaire : le Pico W est directement accessible sur le réseau Wi-Fi.
+
+### Le montage réel
+
+![Ensemble de détecteurs LocoAddr](../assets/rocrail-loconet-pico-wifi/detectors-array.jpg)
+
+Les huit détecteurs sont raccordés aux différentes sections de voie et leurs sorties convergent vers le Pico W.
+
+![Raspberry Pi Pico W et raccordement des détecteurs](../assets/rocrail-loconet-pico-wifi/pico-w-wiring.jpg)
+
+Le Pico W assure simultanément :
+
+- la lecture des détecteurs ;
+- le suivi de la locomotive présente dans chaque canton ;
+- la connexion au réseau Wi-Fi ;
+- le serveur LocoNet over TCP sur le port 1234 ;
+- la génération des messages `OPC_MULTI_SENSE` ;
+- le renvoi de l’état des cantons occupés lorsqu’un client Rocrail se reconnecte.
+
+---
+
 ## 1. Architecture générale
 
 ```text
@@ -312,11 +378,15 @@ Les réglages propres à JMRI et aux autres logiciels ne sont pas détaillés da
 
 ---
 
-## 11. Vidéo de démonstration
+## 11. Démonstration vidéo
 
-Une vidéo montre le fonctionnement complet avec remontée des adresses et actualisation des blocs dans Rocrail :
+La démonstration montre le fonctionnement réel de l’ensemble avec plusieurs sections de voie et plusieurs locomotives : lecture des adresses DCC par les détecteurs, transmission par le Raspberry Pi Pico W et apparition automatique de l’identité des locomotives dans les blocs correspondants de Rocrail.
 
-https://youtu.be/57QW2-mhkzE
+[![Démonstration DCC-LocoAddr + Raspberry Pi Pico W + Rocrail](../assets/rocrail-loconet-pico-wifi/application-8-detectors.jpg)](https://youtu.be/57QW2-mhkzE)
+
+▶️ **[Voir la démonstration vidéo : identification automatique des locomotives dans Rocrail](https://youtu.be/57QW2-mhkzE)**
+
+Cette vidéo constitue un test d’ensemble : détection RailCom, décodage DCC-LocoAddr, fonctionnement multi-détecteurs, réseau Wi-Fi, protocole LocoNet over TCP et intégration Rocrail y sont utilisés simultanément.
 
 ---
 

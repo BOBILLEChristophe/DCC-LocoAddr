@@ -1,5 +1,5 @@
 /*
-   DCC_LocoAddr.h - DCC-LocoAddr v5.1.0
+   DCC_LocoAddr.h - DCC-LocoAddr v5.1.1
 
    Lecture de l'adresse DCC des locomotives avec un détecteur Locoduino
    LocoAddr (carte v3.1) : décodeurs compatibles RailCom®, canal 1.
@@ -23,7 +23,7 @@
 #ifndef DCC_LOCOADDR_H
 #define DCC_LOCOADDR_H
 
-#define DCC_LOCOADDR_VERSION "5.1.0"
+#define DCC_LOCOADDR_VERSION "5.1.1"
 
 #if defined(ARDUINO_ARCH_ESP32)
 #include "LocoAddrReader_ESP32.h"
