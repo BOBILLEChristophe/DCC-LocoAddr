@@ -41,7 +41,7 @@ jobs:
           python-version: '3.12'
       - name: Install PlatformIO Core
         run: pip install --upgrade platformio
-      - name: Build ESP32, RP2040, RP2350 and AVR examples
+      - name: Build ESP32, RP2040, Pico W, RP2350 and AVR examples
         run: |
           pio run -e esp32-basic
           pio run -e esp32-multi
@@ -49,6 +49,7 @@ jobs:
           pio run -e esp32c3-mini-display
           pio run -e rp2040-basic
           pio run -e rp2040-multi
+          pio run -e rp2040-rocrail-loconet-wifi
           pio run -e rp2350-basic
           pio run -e rp2350-multi
           pio run -e avr-mega-3det
