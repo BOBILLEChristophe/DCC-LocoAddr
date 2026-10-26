@@ -152,7 +152,7 @@ pio run -e rp2350-basic
 pio run -e avr-mega-3det
 ```
 
-## Exemple vedette : identification automatique dans Rocrail avec Raspberry Pi Pico W
+## Exemple : identification automatique dans Rocrail avec Raspberry Pi Pico W
 
 **DCC-LocoAddr** permet de réaliser une chaîne complète d’identification automatique des locomotives, depuis la voie jusqu’au logiciel de gestion du réseau.
 
@@ -355,7 +355,7 @@ pio run -e rp2350-basic
 pio run -e avr-mega-3det
 ```
 
-## Featured example: automatic locomotive identification in Rocrail with Raspberry Pi Pico W
+## Example: automatic locomotive identification in Rocrail with Raspberry Pi Pico W
 
 **DCC-LocoAddr** can be used to build a complete automatic locomotive identification chain, from the track to the layout control software.
 
